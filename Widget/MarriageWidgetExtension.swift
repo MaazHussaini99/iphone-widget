@@ -9,8 +9,8 @@ import WidgetKit
 import SwiftUI
 
 // MARK: - Configuration
-// ⚠️ IMPORTANT: Set your marriage date here!
-// To get your timestamp:
+// Marriage Date: August 18, 2025 at 00:00:00 UTC
+// To change this date:
 // 1. Go to https://www.unixtimestamp.com/
 // 2. Enter your marriage date and time
 // 3. Copy the timestamp value
@@ -21,7 +21,7 @@ import SwiftUI
 // June 15, 2019 12:00:00 GMT = 1560600000
 // December 25, 2021 10:30:00 GMT = 1640428200
 
-let marriageDate = Date(timeIntervalSince1970: 1577836800) // ⚠️ CHANGE THIS!
+let marriageDate = Date(timeIntervalSince1970: 1755561600) // August 18, 2025 00:00:00 UTC
 
 // MARK: - Timeline Entry
 struct MarriageEntry: TimelineEntry {

@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    // Update this to your actual marriage date
-    // Example: January 1, 2020 at 00:00:00 GMT
-    // Get timestamp from: https://www.unixtimestamp.com/
-    let marriageDate = Date(timeIntervalSince1970: 1577836800) // January 1, 2020
+    // Marriage Date: August 18, 2025 at 00:00:00 UTC
+    // To change: Go to https://www.unixtimestamp.com/ and get your timestamp
+    let marriageDate = Date(timeIntervalSince1970: 1755561600) // August 18, 2025
 
     @State private var currentDate = Date()
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
