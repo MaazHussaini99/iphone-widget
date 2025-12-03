@@ -92,7 +92,7 @@ struct MarriageWidgetEntryView: View {
         VStack(spacing: 2) {
             Image(systemName: "heart.fill")
                 .font(.system(size: 16))
-                .foregroundColor(.pink)
+                .foregroundColor(.red)
 
             Text("\(entry.days)")
                 .font(.system(size: 20, weight: .bold, design: .rounded))
@@ -112,7 +112,7 @@ struct MarriageWidgetEntryView: View {
             HStack {
                 Image(systemName: "heart.fill")
                     .font(.system(size: 12))
-                    .foregroundColor(.pink)
+                    .foregroundColor(.red)
                 Text("Married")
                     .font(.system(size: 12, weight: .semibold))
             }
@@ -155,6 +155,7 @@ struct MarriageWidgetEntryView: View {
     var inlineView: some View {
         HStack(spacing: 4) {
             Image(systemName: "heart.fill")
+                .foregroundColor(.red)
             Text("\(entry.days)d \(entry.hours)h \(entry.minutes)m married")
         }
         .containerBackground(for: .widget) {

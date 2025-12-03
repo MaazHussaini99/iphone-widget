@@ -21,7 +21,7 @@ struct ContentView: View {
         VStack(spacing: 20) {
             Image(systemName: "heart.circle.fill")
                 .font(.system(size: 80))
-                .foregroundColor(.pink)
+                .foregroundColor(.red)
 
             Text("Marriage Anniversary")
                 .font(.title)
@@ -78,7 +78,7 @@ struct ContentView: View {
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.pink, lineWidth: 1)
+                    .stroke(Color.red, lineWidth: 1)
             )
             .padding(.horizontal)
 
@@ -122,7 +122,7 @@ struct TimeComponentView: View {
 
             Text("\(value)")
                 .font(.system(size: 36, weight: .bold, design: .rounded))
-                .foregroundColor(.pink)
+                .foregroundColor(.red)
                 .frame(minWidth: 80, alignment: .trailing)
         }
     }
