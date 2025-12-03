@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView: View {
     // Marriage Date: August 18, 2025 at 00:00:00 UTC
@@ -53,7 +54,7 @@ struct ContentView: View {
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 15)
-                    .fill(Color(.systemGray6))
+                    .fill(Color(uiColor: .systemGray6))
             )
             .padding(.horizontal)
 
