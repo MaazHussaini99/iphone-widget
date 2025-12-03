@@ -5,9 +5,23 @@ import AppKit
 
 // Function to create app icon with red background and white heart
 func generateAppIcon(size: CGFloat, filename: String) {
-    let image = NSImage(size: NSSize(width: size, height: size))
+    // Create bitmap with exact pixel dimensions
+    let bitmapRep = NSBitmapImageRep(
+        bitmapDataPlanes: nil,
+        pixelsWide: Int(size),
+        pixelsHigh: Int(size),
+        bitsPerSample: 8,
+        samplesPerPixel: 4,
+        hasAlpha: true,
+        isPlanar: false,
+        colorSpaceName: .deviceRGB,
+        bytesPerRow: 0,
+        bitsPerPixel: 0
+    )!
 
-    image.lockFocus()
+    let ctx = NSGraphicsContext(bitmapImageRep: bitmapRep)!
+    NSGraphicsContext.saveGraphicsState()
+    NSGraphicsContext.current = ctx
 
     // Red gradient background
     let gradient = NSGradient(colors: [
@@ -62,18 +76,10 @@ func generateAppIcon(size: CGFloat, filename: String) {
     NSColor.white.setFill()
     heartPath.fill()
 
-    // Add subtle shadow to heart
-    let shadow = NSShadow()
-    shadow.shadowColor = NSColor.black.withAlphaComponent(0.3)
-    shadow.shadowBlurRadius = size * 0.02
-    shadow.shadowOffset = NSSize(width: 0, height: -size * 0.01)
-
-    image.unlockFocus()
+    NSGraphicsContext.restoreGraphicsState()
 
     // Save as PNG
-    guard let tiffData = image.tiffRepresentation,
-          let bitmapImage = NSBitmapImageRep(data: tiffData),
-          let pngData = bitmapImage.representation(using: .png, properties: [:]) else {
+    guard let pngData = bitmapRep.representation(using: .png, properties: [:]) else {
         print("Failed to create image data for \(filename)")
         return
     }
