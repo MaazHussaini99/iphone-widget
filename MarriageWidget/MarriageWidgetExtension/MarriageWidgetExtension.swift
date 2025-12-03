@@ -102,7 +102,9 @@ struct MarriageWidgetEntryView: View {
                 .font(.system(size: 8))
                 .textCase(.uppercase)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .containerBackground(for: .widget) {
+            Color.clear
+        }
     }
 
     // Rectangular Lock Screen widget (RECOMMENDED for showing all three values)
@@ -145,7 +147,9 @@ struct MarriageWidgetEntryView: View {
                 }
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        .containerBackground(for: .widget) {
+            Color.clear
+        }
     }
 
     // Inline Lock Screen widget (above the time)
@@ -153,6 +157,9 @@ struct MarriageWidgetEntryView: View {
         HStack(spacing: 4) {
             Image(systemName: "heart.fill")
             Text("\(entry.days)d \(entry.hours)h \(entry.minutes)m married")
+        }
+        .containerBackground(for: .widget) {
+            Color.clear
         }
     }
 }
