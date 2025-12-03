@@ -33,6 +33,11 @@ struct ContentView: View {
 
             VStack(spacing: 15) {
                 TimeComponentView(
+                    value: timeComponents.months,
+                    label: "Months"
+                )
+
+                TimeComponentView(
                     value: timeComponents.days,
                     label: "Days"
                 )
@@ -90,15 +95,16 @@ struct ContentView: View {
         }
     }
 
-    var timeComponents: (days: Int, hours: Int, minutes: Int, seconds: Int) {
+    var timeComponents: (months: Int, days: Int, hours: Int, minutes: Int, seconds: Int) {
         let calendar = Calendar.current
         let components = calendar.dateComponents(
-            [.day, .hour, .minute, .second],
+            [.month, .day, .hour, .minute, .second],
             from: marriageDate,
             to: currentDate
         )
 
         return (
+            months: components.month ?? 0,
             days: components.day ?? 0,
             hours: components.hour ?? 0,
             minutes: components.minute ?? 0,

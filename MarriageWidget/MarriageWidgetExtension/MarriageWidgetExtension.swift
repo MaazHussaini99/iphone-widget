@@ -25,6 +25,7 @@ let marriageDate = Date(timeIntervalSince1970: 1755595200) // August 18, 2025, 2
 // MARK: - Timeline Entry
 struct MarriageEntry: TimelineEntry {
     let date: Date
+    let months: Int
     let days: Int
     let hours: Int
     let minutes: Int
@@ -33,7 +34,7 @@ struct MarriageEntry: TimelineEntry {
 // MARK: - Timeline Provider
 struct MarriageProvider: TimelineProvider {
     func placeholder(in context: Context) -> MarriageEntry {
-        MarriageEntry(date: Date(), days: 365, hours: 12, minutes: 30)
+        MarriageEntry(date: Date(), months: 12, days: 15, hours: 8, minutes: 30)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (MarriageEntry) -> Void) {
@@ -55,13 +56,14 @@ struct MarriageProvider: TimelineProvider {
     private func createEntry(for date: Date) -> MarriageEntry {
         let calendar = Calendar.current
         let components = calendar.dateComponents(
-            [.day, .hour, .minute],
+            [.month, .day, .hour, .minute],
             from: marriageDate,
             to: date
         )
 
         return MarriageEntry(
             date: date,
+            months: components.month ?? 0,
             days: components.day ?? 0,
             hours: components.hour ?? 0,
             minutes: components.minute ?? 0
@@ -89,58 +91,71 @@ struct MarriageWidgetEntryView: View {
 
     // Circular Lock Screen widget
     var circularView: some View {
-        VStack(spacing: 2) {
+        VStack(spacing: 1) {
             Image(systemName: "heart.fill")
-                .font(.system(size: 16))
+                .font(.system(size: 14))
                 .foregroundColor(.red)
 
-            Text("\(entry.days)")
-                .font(.system(size: 20, weight: .bold, design: .rounded))
+            Text("\(entry.months)")
+                .font(.system(size: 18, weight: .bold, design: .rounded))
 
-            Text("days")
-                .font(.system(size: 8))
+            Text("months")
+                .font(.system(size: 7))
                 .textCase(.uppercase)
+
+            Text("\(entry.days)d")
+                .font(.system(size: 10, weight: .semibold, design: .rounded))
+                .foregroundColor(.secondary)
         }
         .containerBackground(for: .widget) {
             Color.clear
         }
     }
 
-    // Rectangular Lock Screen widget (RECOMMENDED for showing all three values)
+    // Rectangular Lock Screen widget (RECOMMENDED for showing all values)
     var rectangularView: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: 3) {
             HStack {
                 Image(systemName: "heart.fill")
-                    .font(.system(size: 12))
+                    .font(.system(size: 11))
                     .foregroundColor(.red)
                 Text("Married")
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(.system(size: 11, weight: .semibold))
             }
 
-            HStack(spacing: 12) {
+            HStack(spacing: 8) {
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("\(entry.months)")
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                    Text("mo")
+                        .font(.system(size: 7))
+                        .textCase(.uppercase)
+                        .foregroundColor(.secondary)
+                }
+
                 VStack(alignment: .leading, spacing: 0) {
                     Text("\(entry.days)")
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
-                    Text("days")
-                        .font(.system(size: 8))
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                    Text("day")
+                        .font(.system(size: 7))
                         .textCase(.uppercase)
                         .foregroundColor(.secondary)
                 }
 
                 VStack(alignment: .leading, spacing: 0) {
                     Text("\(entry.hours)")
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
-                    Text("hrs")
-                        .font(.system(size: 8))
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                    Text("hr")
+                        .font(.system(size: 7))
                         .textCase(.uppercase)
                         .foregroundColor(.secondary)
                 }
 
                 VStack(alignment: .leading, spacing: 0) {
                     Text("\(entry.minutes)")
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
                     Text("min")
-                        .font(.system(size: 8))
+                        .font(.system(size: 7))
                         .textCase(.uppercase)
                         .foregroundColor(.secondary)
                 }
@@ -156,7 +171,7 @@ struct MarriageWidgetEntryView: View {
         HStack(spacing: 4) {
             Image(systemName: "heart.fill")
                 .foregroundColor(.red)
-            Text("\(entry.days)d \(entry.hours)h \(entry.minutes)m married")
+            Text("\(entry.months)mo \(entry.days)d \(entry.hours)h \(entry.minutes)m married")
         }
         .containerBackground(for: .widget) {
             Color.clear
@@ -194,17 +209,17 @@ struct MarriageWidgetBundle: WidgetBundle {
 #Preview("Circular", as: .accessoryCircular) {
     MarriageWidget()
 } timeline: {
-    MarriageEntry(date: Date(), days: 1825, hours: 14, minutes: 32)
+    MarriageEntry(date: Date(), months: 12, days: 15, hours: 8, minutes: 30)
 }
 
 #Preview("Rectangular", as: .accessoryRectangular) {
     MarriageWidget()
 } timeline: {
-    MarriageEntry(date: Date(), days: 1825, hours: 14, minutes: 32)
+    MarriageEntry(date: Date(), months: 12, days: 15, hours: 8, minutes: 30)
 }
 
 #Preview("Inline", as: .accessoryInline) {
     MarriageWidget()
 } timeline: {
-    MarriageEntry(date: Date(), days: 1825, hours: 14, minutes: 32)
+    MarriageEntry(date: Date(), months: 12, days: 15, hours: 8, minutes: 30)
 }
