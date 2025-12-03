@@ -9,19 +9,18 @@ import WidgetKit
 import SwiftUI
 
 // MARK: - Configuration
-// Marriage Date: August 18, 2025 at 00:00:00 UTC
+// Marriage Date: August 18, 2025 at 2:50 PM IST (Nikah time)
+// IST (India Standard Time) = UTC+5:30
+// 2:50 PM IST = 9:20 AM UTC
+// Unix Timestamp: 1755595200
+//
 // To change this date:
 // 1. Go to https://www.unixtimestamp.com/
 // 2. Enter your marriage date and time
 // 3. Copy the timestamp value
 // 4. Replace the number below
-//
-// Example dates:
-// January 1, 2020 00:00:00 GMT = 1577836800
-// June 15, 2019 12:00:00 GMT = 1560600000
-// December 25, 2021 10:30:00 GMT = 1640428200
 
-let marriageDate = Date(timeIntervalSince1970: 1755561600) // August 18, 2025 00:00:00 UTC
+let marriageDate = Date(timeIntervalSince1970: 1755595200) // August 18, 2025, 2:50 PM IST
 
 // MARK: - Timeline Entry
 struct MarriageEntry: TimelineEntry {
