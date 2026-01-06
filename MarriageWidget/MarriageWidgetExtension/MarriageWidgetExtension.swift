@@ -44,11 +44,18 @@ struct MarriageProvider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<MarriageEntry>) -> Void) {
         let currentDate = Date()
-        let entry = createEntry(for: currentDate)
+        var entries: [MarriageEntry] = []
 
-        // Update every minute
-        let nextUpdate = Calendar.current.date(byAdding: .minute, value: 1, to: currentDate)!
-        let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
+        // Create entries for the next 60 minutes (one per minute)
+        // This ensures the widget updates every minute reliably
+        for minuteOffset in 0..<60 {
+            let entryDate = Calendar.current.date(byAdding: .minute, value: minuteOffset, to: currentDate)!
+            let entry = createEntry(for: entryDate)
+            entries.append(entry)
+        }
+
+        // Refresh timeline when all entries are consumed
+        let timeline = Timeline(entries: entries, policy: .atEnd)
 
         completion(timeline)
     }
